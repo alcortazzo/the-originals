@@ -1,5 +1,5 @@
 import random
-from uuid import uuid4
+from pprint import pprint
 
 import requests
 
@@ -7,7 +7,7 @@ import requests
 def try_to_create_task_with_no_token():
     print("Trying to create a task with no token...")
     response = requests.post("http://localhost:8000/v1/create_task")
-    print(f"Response: {response.status_code=} {response.json()=}\n")
+    print(f"    Response: {response.status_code=} {response.json()=}\n")
 
 
 def try_to_create_task_with_expired_token():
@@ -16,7 +16,7 @@ def try_to_create_task_with_expired_token():
         "http://localhost:8000/v1/create_task",
         headers={"authorization": "token2", "role": "admin"},
     )
-    print(f"Response: {response.status_code=} {response.json()=}\n")
+    print(f"    Response: {response.status_code=} {response.json()=}\n")
 
 
 def try_to_create_task_with_valid_token_but_wrong_role():
@@ -25,7 +25,7 @@ def try_to_create_task_with_valid_token_but_wrong_role():
         "http://localhost:8000/v1/create_task",
         headers={"authorization": "token3", "role": "admin"},
     )
-    print(f"Response: {response.status_code=} {response.json()=}\n")
+    print(f"    Response: {response.status_code=} {response.json()=}\n")
 
 
 def try_to_create_task_with_valid_token_and_role():
@@ -44,7 +44,7 @@ def try_to_create_task_with_valid_token_and_role():
             "priority": 1,
         },
     )
-    print(f"Response: {response.status_code=} {response.json()=}\n")
+    print(f"    Response: {response.status_code=} {response.json()=}\n")
 
 
 def get_list_of_tasks():
@@ -53,7 +53,8 @@ def get_list_of_tasks():
         "http://localhost:8000/v1/get_tasks",
         headers={"authorization": "token", "role": "admin"},
     )
-    print(f"Response: {response.status_code=} {response.json()=}\n")
+    print(f"    Response: {response.status_code=}\n")
+    pprint(response.json())
 
 
 if __name__ == "__main__":

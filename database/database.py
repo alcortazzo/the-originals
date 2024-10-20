@@ -22,7 +22,7 @@ class Database:
             url=connection_url,
             echo=False,
         )
-        Base.metadata.create_all(self.engine)
+        # Base.metadata.create_all(self.engine)
         self._session: Session | None = None
 
     @property

@@ -126,8 +126,6 @@ async def create_task(body: TaskForm) -> dict:
             db.get_user_by_uuid(user_uuid=assignee, raise_if_none=True) for assignee in body.assignees
         ]
 
-        pass
-
         # Create the task in the database
         task: Task = db.create_task(
             name=body.name,
@@ -137,7 +135,7 @@ async def create_task(body: TaskForm) -> dict:
             coordinator=coordinator,
             assignees=assignees,
         )
-    return {"error": {"code": 0}, "result": {"description": "Success!", "task_uuid": task.uuid}}
+        return {"error": {"code": 0}, "result": {"description": "Success!", "task_uuid": task.uuid}}
 
 
 @app.get(
